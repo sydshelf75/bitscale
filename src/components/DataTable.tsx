@@ -589,11 +589,11 @@ export function DataTable() {
     return (
         <div className="flex flex-col flex-1 overflow-hidden" onKeyDown={handleKeyDown}>
             {/* Search, Group, and Bulk Actions Bar */}
-            <div className="flex items-center justify-between px-4 py-2 bg-gray-50 dark:bg-gray-900 border-b">
+            <div className="flex flex-wrap items-center justify-between px-2 sm:px-4 py-2 gap-2 bg-gray-50 dark:bg-gray-900 border-b">
                 {/* Search */}
-                <div className="flex items-center gap-4">
-                    <div className="relative w-64">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 flex-1 min-w-0">
+                    <div className="relative w-full xs:w-48 sm:w-56 md:w-64">
+                        <Search className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 h-3 w-3 sm:h-4 sm:w-4 text-gray-400" />
                         <Input
                             placeholder="Search..."
                             value={searchQuery}
@@ -601,25 +601,25 @@ export function DataTable() {
                                 setSearchQuery(e.target.value)
                                 setCurrentPage(1)
                             }}
-                            className="pl-9 pr-8"
+                            className="pl-7 sm:pl-9 pr-7 sm:pr-8 text-sm h-8"
                         />
                         {searchQuery && (
                             <button
                                 onClick={() => setSearchQuery("")}
-                                className="absolute right-3 top-1/2 -translate-y-1/2"
+                                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2"
                             >
-                                <X className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                                <X className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400 hover:text-gray-600" />
                             </button>
                         )}
                     </div>
 
                     {/* Group By */}
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Group by:</span>
+                    <div className="hidden sm:flex items-center gap-1 sm:gap-2">
+                        <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Group by:</span>
                         <Select
                             value={groupBy}
                             onChange={(e) => setGroupBy(e.target.value as GroupBy)}
-                            className="w-32"
+                            className="w-24 sm:w-32 text-sm"
                         >
                             <option value="none">None</option>
                             <option value="company">Company</option>
@@ -630,21 +630,21 @@ export function DataTable() {
 
                 {/* Bulk Actions */}
                 {selectedRows.size > 0 && (
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center gap-1 sm:gap-2">
+                        <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 hidden xs:inline">
                             {selectedRows.size} selected
                         </span>
-                        <Button variant="outline" size="sm" onClick={handleExportCSV}>
+                        <Button variant="outline" size="sm" onClick={handleExportCSV} className="h-7 sm:h-8 text-xs sm:text-sm">
                             Export
                         </Button>
-                        <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
+                        <Button variant="destructive" size="sm" onClick={handleBulkDelete} className="h-7 sm:h-8 text-xs sm:text-sm">
                             Delete
                         </Button>
                     </div>
                 )}
 
                 {/* Results count */}
-                <div className="text-sm text-gray-500">
+                <div className="text-xs sm:text-sm text-gray-500">
                     {processedData.length} results
                 </div>
             </div>
@@ -775,16 +775,16 @@ export function DataTable() {
 
             {/* Pagination */}
             {groupBy === "none" && (
-                <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-gray-900 border-t">
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Rows per page:</span>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between px-2 sm:px-4 py-2 sm:py-3 gap-2 sm:gap-0 bg-white dark:bg-gray-900 border-t">
+                    <div className="flex items-center justify-between sm:justify-start gap-2">
+                        <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Rows per page:</span>
                         <Select
                             value={pageSize.toString()}
                             onChange={(e) => {
                                 setPageSize(Number(e.target.value))
                                 setCurrentPage(1)
                             }}
-                            className="w-20"
+                            className="w-16 sm:w-20 text-sm"
                         >
                             <option value="10">10</option>
                             <option value="25">25</option>
@@ -793,46 +793,46 @@ export function DataTable() {
                         </Select>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex items-center justify-between sm:justify-end gap-2">
+                        <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                             Page {currentPage} of {totalPages}
                         </span>
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-0.5 sm:gap-1">
                             <Button
                                 variant="outline"
                                 size="icon"
-                                className="h-8 w-8"
+                                className="h-7 w-7 sm:h-8 sm:w-8"
                                 onClick={() => setCurrentPage(1)}
                                 disabled={currentPage === 1}
                             >
-                                <ChevronsLeft className="h-4 w-4" />
+                                <ChevronsLeft className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                             <Button
                                 variant="outline"
                                 size="icon"
-                                className="h-8 w-8"
+                                className="h-7 w-7 sm:h-8 sm:w-8"
                                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                                 disabled={currentPage === 1}
                             >
-                                <ChevronLeft className="h-4 w-4" />
+                                <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                             <Button
                                 variant="outline"
                                 size="icon"
-                                className="h-8 w-8"
+                                className="h-7 w-7 sm:h-8 sm:w-8"
                                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                                 disabled={currentPage === totalPages}
                             >
-                                <ChevronRight className="h-4 w-4" />
+                                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                             <Button
                                 variant="outline"
                                 size="icon"
-                                className="h-8 w-8"
+                                className="h-7 w-7 sm:h-8 sm:w-8"
                                 onClick={() => setCurrentPage(totalPages)}
                                 disabled={currentPage === totalPages}
                             >
-                                <ChevronsRight className="h-4 w-4" />
+                                <ChevronsRight className="h-3 w-3 sm:h-4 sm:w-4" />
                             </Button>
                         </div>
                     </div>
