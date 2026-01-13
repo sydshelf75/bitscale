@@ -5,7 +5,7 @@ import { TableFooter } from "@/components/TableFooter"
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen bg-white">
+    <div className="flex flex-col h-screen bg-white dark:bg-gray-900">
       {/* Header with breadcrumb and warning banner */}
       <Header />
 
